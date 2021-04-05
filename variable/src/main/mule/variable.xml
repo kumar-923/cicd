@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="e2eb0566-25b1-49c2-9539-f45dafdf82b9" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="variableFlow" doc:id="c6fc4dc3-042c-4d23-8889-f681f0fc1e16" >
+		<http:listener doc:name="Listener" doc:id="962b3b52-361b-4cdc-8f0a-b844ef1a4133" config-ref="HTTP_Listener_config" path="/cicd"/>
+		<set-payload value='#["where are you"]' doc:name="Set Payload" doc:id="b8e34a10-7e1b-4208-8ebf-68a011e63c04" />
+	</flow>
+	<sub-flow name="variableSub_Flow" doc:id="66da2244-3171-4d9e-9a0a-4da57ba2ef05" >
+		<logger level="INFO" doc:name="SOF2" doc:id="d521a529-c02f-4a12-9459-fcc660765271" message="This is sub flow"/>
+		<set-payload value="child is over written" doc:name="child" doc:id="837caba4-9497-4e46-a7e4-7741a4aa66ea" />
+		<logger level="INFO" doc:name="EOF 2" doc:id="683273dc-8655-4977-bf63-ea7cd559f89a" />
+	</sub-flow>
+</mule>
